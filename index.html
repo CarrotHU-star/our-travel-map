@@ -7,22 +7,14 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#e74c3c">
     <title>我们的旅行地图</title>
-    
-    <!-- PWA 配置 -->
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icon-192.png">
     
     <style>
-        /* 基础样式重置 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif;
             background-color: #faf7f2;
             color: #4a4a4a;
             line-height: 1.6;
@@ -30,7 +22,6 @@
             padding-bottom: 80px;
         }
         
-        /* 头部 */
         .app-header {
             background: #e74c3c;
             color: white;
@@ -42,18 +33,9 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
-        .app-header h1 {
-            font-size: 1.5em;
-            font-weight: 600;
-        }
+        .app-header h1 { font-size: 1.5em; font-weight: 600; }
+        .app-header p { font-size: 0.85em; opacity: 0.9; margin-top: 4px; }
         
-        .app-header p {
-            font-size: 0.85em;
-            opacity: 0.9;
-            margin-top: 4px;
-        }
-        
-        /* 统计栏 */
         .stats-bar {
             display: flex;
             justify-content: space-around;
@@ -64,23 +46,10 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
         
-        .stat-item {
-            text-align: center;
-        }
+        .stat-item { text-align: center; }
+        .stat-number { display: block; font-size: 1.8em; font-weight: bold; color: #e74c3c; }
+        .stat-label { font-size: 0.8em; color: #888; }
         
-        .stat-number {
-            display: block;
-            font-size: 1.8em;
-            font-weight: bold;
-            color: #e74c3c;
-        }
-        
-        .stat-label {
-            font-size: 0.8em;
-            color: #888;
-        }
-        
-        /* 地图区域 */
         .map-section {
             background: white;
             margin: 15px;
@@ -111,20 +80,10 @@
             transition: all 0.3s ease;
         }
         
-        .continent:hover {
-            fill: #ffd1d1;
-        }
+        .continent:hover { fill: #ffd1d1; }
+        .continent.visited { fill: #ff9e9e; }
+        .continent.active { fill: #e74c3c; filter: drop-shadow(0 0 8px rgba(231, 76, 60, 0.4)); }
         
-        .continent.visited {
-            fill: #ff9e9e;
-        }
-        
-        .continent.active {
-            fill: #e74c3c;
-            filter: drop-shadow(0 0 8px rgba(231, 76, 60, 0.4));
-        }
-        
-        /* 城市标记 */
         .city-marker {
             position: absolute;
             width: 16px;
@@ -162,11 +121,8 @@
             transition: opacity 0.3s;
         }
         
-        .city-marker:hover::after {
-            opacity: 1;
-        }
+        .city-marker:hover::after { opacity: 1; }
         
-        /* 图例 */
         .map-legend {
             display: flex;
             justify-content: center;
@@ -175,24 +131,12 @@
             font-size: 0.8em;
         }
         
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: #666;
-        }
-        
-        .legend-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-        
+        .legend-item { display: flex; align-items: center; gap: 6px; color: #666; }
+        .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
         .legend-dot.unvisited { background: #e0e0e0; }
         .legend-dot.visited { background: #ff9e9e; }
         .legend-dot.current { background: #e74c3c; }
         
-        /* 详情面板 */
         .detail-panel {
             background: white;
             margin: 15px;
@@ -202,25 +146,11 @@
             min-height: 300px;
         }
         
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: #aaa;
-        }
+        .empty-state { text-align: center; padding: 40px 20px; color: #aaa; }
+        .empty-icon { font-size: 3em; margin-bottom: 15px; }
+        .empty-state h3 { color: #666; margin-bottom: 8px; }
         
-        .empty-icon {
-            font-size: 3em;
-            margin-bottom: 15px;
-        }
-        
-        .empty-state h3 {
-            color: #666;
-            margin-bottom: 8px;
-        }
-        
-        .city-content {
-            animation: fadeIn 0.5s ease;
-        }
+        .city-content { animation: fadeIn 0.5s ease; }
         
         .city-header {
             margin-bottom: 20px;
@@ -228,18 +158,9 @@
             border-bottom: 2px solid #f0f0f0;
         }
         
-        .city-header h2 {
-            color: #e74c3c;
-            font-size: 1.5em;
-            margin-bottom: 5px;
-        }
+        .city-header h2 { color: #e74c3c; font-size: 1.5em; margin-bottom: 5px; }
+        .visit-date { color: #888; font-size: 0.9em; }
         
-        .visit-date {
-            color: #888;
-            font-size: 0.9em;
-        }
-        
-        /* 照片画廊 */
         .photo-gallery {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -255,23 +176,10 @@
             transition: transform 0.3s;
         }
         
-        .photo-item:hover {
-            transform: scale(1.05);
-        }
+        .photo-item:hover { transform: scale(1.05); }
+        .photo-item img { width: 100%; height: 100%; object-fit: cover; }
         
-        .photo-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        /* 随记区域 */
-        .memory-section h3 {
-            color: #666;
-            margin-bottom: 10px;
-            font-size: 1em;
-        }
-        
+        .memory-section h3 { color: #666; margin-bottom: 10px; font-size: 1em; }
         .memory-text {
             background: #faf7f2;
             padding: 15px;
@@ -281,7 +189,6 @@
             white-space: pre-wrap;
         }
         
-        /* 底部浮动按钮 */
         .fab-container {
             position: fixed;
             bottom: 20px;
@@ -306,22 +213,10 @@
             justify-content: center;
         }
         
-        .fab-button.primary {
-            background: #e74c3c;
-            color: white;
-        }
+        .fab-button.primary { background: #e74c3c; color: white; }
+        .fab-button.secondary { background: white; color: #e74c3c; font-size: 1.2em; }
+        .fab-button:active { transform: scale(0.95); }
         
-        .fab-button.secondary {
-            background: white;
-            color: #e74c3c;
-            font-size: 1.2em;
-        }
-        
-        .fab-button:active {
-            transform: scale(0.95);
-        }
-        
-        /* 模态框 */
         .modal {
             display: none;
             position: fixed;
@@ -335,9 +230,7 @@
             align-items: flex-end;
         }
         
-        .modal.active {
-            display: flex;
-        }
+        .modal.active { display: flex; }
         
         .modal-content {
             background: white;
@@ -365,10 +258,7 @@
             z-index: 10;
         }
         
-        .modal-header h2 {
-            color: #e74c3c;
-            font-size: 1.3em;
-        }
+        .modal-header h2 { color: #e74c3c; font-size: 1.3em; }
         
         .close-btn {
             background: none;
@@ -384,14 +274,9 @@
             justify-content: center;
         }
         
-        /* 表单样式 */
-        .form-content {
-            padding: 20px;
-        }
+        .form-content { padding: 20px; }
         
-        .form-group {
-            margin-bottom: 20px;
-        }
+        .form-group { margin-bottom: 20px; }
         
         .form-group label {
             display: block;
@@ -421,48 +306,6 @@
             border-color: #e74c3c;
         }
         
-        /* iOS 相册选择优化 */
-        .album-selector {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        
-        .album-btn {
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .album-btn:active {
-            background: #fff5f5;
-            border-color: #e74c3c;
-            transform: scale(0.98);
-        }
-        
-        .album-btn .icon {
-            font-size: 2em;
-            display: block;
-            margin-bottom: 5px;
-        }
-        
-        .album-btn .name {
-            font-size: 0.9em;
-            color: #555;
-        }
-        
-        .album-btn .desc {
-            font-size: 0.75em;
-            color: #999;
-            margin-top: 2px;
-        }
-        
-        /* 照片上传区域 */
         .photo-upload-area {
             border: 2px dashed #e0e0e0;
             border-radius: 16px;
@@ -477,11 +320,7 @@
             border-color: #e74c3c;
         }
         
-        .upload-icon {
-            font-size: 2.5em;
-            display: block;
-            margin-bottom: 10px;
-        }
+        .upload-icon { font-size: 2.5em; display: block; margin-bottom: 10px; }
         
         .photo-preview-grid {
             display: grid;
@@ -497,11 +336,7 @@
             position: relative;
         }
         
-        .preview-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .preview-item img { width: 100%; height: 100%; object-fit: cover; }
         
         .remove-photo {
             position: absolute;
@@ -520,22 +355,6 @@
             justify-content: center;
         }
         
-        /* iOS 快捷操作提示 */
-        .ios-tip {
-            background: #fff5f5;
-            border-left: 4px solid #e74c3c;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            font-size: 0.85em;
-            color: #666;
-        }
-        
-        .ios-tip strong {
-            color: #e74c3c;
-        }
-        
-        /* 按钮 */
         .form-actions {
             display: flex;
             gap: 12px;
@@ -553,21 +372,10 @@
             transition: all 0.3s;
         }
         
-        .btn-primary {
-            background: #e74c3c;
-            color: white;
-        }
+        .btn-primary { background: #e74c3c; color: white; }
+        .btn-secondary { background: #f0f0f0; color: #666; }
+        .btn:active { transform: scale(0.98); }
         
-        .btn-secondary {
-            background: #f0f0f0;
-            color: #666;
-        }
-        
-        .btn:active {
-            transform: scale(0.98);
-        }
-        
-        /* 加载动画 */
         .loading-overlay {
             display: none;
             position: fixed;
@@ -582,9 +390,7 @@
             flex-direction: column;
         }
         
-        .loading-overlay.active {
-            display: flex;
-        }
+        .loading-overlay.active { display: flex; }
         
         .spinner {
             width: 50px;
@@ -596,11 +402,8 @@
             margin-bottom: 15px;
         }
         
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
         
-        /* 通知 */
         .notification {
             position: fixed;
             top: 20px;
@@ -618,11 +421,8 @@
             text-align: center;
         }
         
-        .notification.show {
-            transform: translateX(-50%) translateY(0);
-        }
+        .notification.show { transform: translateX(-50%) translateY(0); }
         
-        /* 安装提示 */
         .install-banner {
             display: none;
             position: fixed;
@@ -637,9 +437,7 @@
             align-items: center;
         }
         
-        .install-banner.show {
-            display: flex;
-        }
+        .install-banner.show { display: flex; }
         
         .install-btn {
             background: #e74c3c;
@@ -650,26 +448,20 @@
             cursor: pointer;
         }
         
-        /* 动画 */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* 隐藏文件输入 */
-        .hidden-input {
-            display: none;
-        }
+        .hidden-input { display: none; }
     </style>
 </head>
 <body>
-    <!-- 头部 -->
     <header class="app-header">
         <h1>🌍 我们的旅行地图</h1>
         <p>记录我们一起探索的每一个美好角落</p>
     </header>
 
-    <!-- 统计栏 -->
     <div class="stats-bar">
         <div class="stat-item">
             <span class="stat-number" id="cityCount">0</span>
@@ -685,20 +477,14 @@
         </div>
     </div>
 
-    <!-- 地图区域 -->
     <div class="map-section">
         <div class="map-container">
             <svg id="worldMap" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
                 <path class="continent" data-region="asia" d="M 200 150 Q 250 100 300 120 Q 350 80 400 100 Q 450 120 500 150 Q 550 180 600 200 Q 650 220 700 250 Q 750 280 800 300 Q 850 320 900 350 Q 950 380 1000 400 L 1000 500 L 200 500 Z" fill="#e0e0e0" stroke="#ccc" stroke-width="1"/>
-                
                 <path class="continent" data-region="europe" d="M 450 80 Q 480 60 520 70 Q 560 80 600 100 Q 640 120 680 140 Q 720 160 750 180 Q 780 200 800 220 L 800 300 Q 750 280 700 250 Q 650 220 600 200 Q 550 180 500 150 Q 450 120 400 100 Q 380 90 450 80 Z" fill="#e0e0e0" stroke="#ccc" stroke-width="1"/>
-                
                 <path class="continent" data-region="africa" d="M 450 200 Q 500 220 550 250 Q 600 280 650 320 Q 700 360 750 400 Q 800 440 850 480 L 850 500 L 450 500 L 450 200 Z" fill="#e0e0e0" stroke="#ccc" stroke-width="1"/>
-                
                 <path class="continent" data-region="north-america" d="M 50 50 Q 100 30 150 40 Q 200 50 250 80 Q 300 110 350 140 Q 400 170 450 200 L 450 300 Q 400 280 350 250 Q 300 220 250 200 Q 200 180 150 160 Q 100 140 50 120 Z" fill="#e0e0e0" stroke="#ccc" stroke-width="1"/>
-                
                 <path class="continent" data-region="south-america" d="M 200 300 Q 250 320 300 350 Q 350 380 400 420 Q 450 460 500 500 L 200 500 L 200 300 Z" fill="#e0e0e0" stroke="#ccc" stroke-width="1"/>
-                
                 <path class="continent" data-region="oceania" d="M 750 350 Q 800 330 850 350 Q 900 370 950 400 L 950 500 L 750 500 L 750 350 Z" fill="#e0e0e0" stroke="#ccc" stroke-width="1"/>
             </svg>
             <div id="cityMarkers"></div>
@@ -719,7 +505,6 @@
         </div>
     </div>
 
-    <!-- 详情面板 -->
     <div class="detail-panel" id="detailPanel">
         <div class="empty-state" id="emptyState">
             <div class="empty-icon">🗺️</div>
@@ -739,13 +524,11 @@
         </div>
     </div>
 
-    <!-- 浮动按钮 -->
     <div class="fab-container">
         <button class="fab-button secondary" id="importBtn" title="导入照片">📷</button>
         <button class="fab-button primary" id="addMemoryBtn" title="添加回忆">+</button>
     </div>
 
-    <!-- 添加回忆模态框 -->
     <div class="modal" id="memoryModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -753,37 +536,15 @@
                 <button class="close-btn" id="closeModal">&times;</button>
             </div>
             <form id="memoryForm" class="form-content">
-                <!-- iOS 快捷相册选择 -->
-                <div class="form-group" id="albumSelector">
-                    <label>选择照片来源</label>
-                    <div class="ios-tip" id="iosTip">
-                        <strong>💡 iOS 用户提示：</strong><br>
-                        点击"照片图库"后，在底部选择"相册"标签，找到你们的<strong>共享相册</strong>
+                <div class="form-group">
+                    <label>选择照片</label>
+                    <div class="photo-upload-area" id="photoUpload">
+                        <input type="file" id="inputPhotos" multiple accept="image/*" class="hidden-input">
+                        <span class="upload-icon">📷</span>
+                        <p>点击选择照片</p>
+                        <small>支持多选，建议每次不超过5张</small>
                     </div>
-                    <div class="album-selector">
-                        <div class="album-btn" id="btnPhotoLibrary">
-                            <span class="icon">📸</span>
-                            <span class="name">照片图库</span>
-                            <span class="desc">从相册选择</span>
-                        </div>
-                        <div class="album-btn" id="btnCamera">
-                            <span class="icon">📷</span>
-                            <span class="name">相机</span>
-                            <span class="desc">拍摄新照片</span>
-                        </div>
-                        <div class="album-btn" id="btnFiles">
-                            <span class="icon">📁</span>
-                            <span class="name">文件</span>
-                            <span class="desc">从文件选择</span>
-                        </div>
-                        <div class="album-btn" id="btnSharedAlbum">
-                            <span class="icon">❤️</span>
-                            <span class="name">共享相册</span>
-                            <span class="desc">快速访问</span>
-                        </div>
-                    </div>
-                    <input type="file" id="inputPhotos" multiple accept="image/*" class="hidden-input">
-                    <input type="file" id="inputCamera" accept="image/*" capture="environment" class="hidden-input">
+                    <div class="photo-preview-grid" id="photoPreview"></div>
                 </div>
 
                 <div class="form-group">
@@ -807,10 +568,6 @@
                     <input type="date" id="inputDate">
                 </div>
                 <div class="form-group">
-                    <label>已选照片</label>
-                    <div class="photo-preview-grid" id="photoPreview"></div>
-                </div>
-                <div class="form-group">
                     <label>旅行随记</label>
                     <textarea id="inputMemory" rows="4" placeholder="记录下当时的心情、故事..."></textarea>
                 </div>
@@ -822,97 +579,101 @@
         </div>
     </div>
 
-    <!-- 加载动画 -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="spinner"></div>
-        <p>正在识别照片信息...</p>
+        <p id="loadingText">正在处理...</p>
     </div>
 
-    <!-- 通知 -->
     <div class="notification" id="notification"></div>
 
-    <!-- 安装提示 -->
     <div class="install-banner" id="installBanner">
         <span>添加到主屏幕，像App一样使用</span>
         <button class="install-btn" id="installBtn">安装</button>
     </div>
 
     <script>
-        // 数据存储
-        let memories = JSON.parse(localStorage.getItem('travelMemories')) || [];
+        // ===== 数据存储 =====
+        let memories = [];
         let currentPhotos = [];
-        let currentCity = null;
-        let isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-
-        // DOM 元素
-        const worldMap = document.getElementById('worldMap');
-        const cityMarkers = document.getElementById('cityMarkers');
-        const detailPanel = document.getElementById('detailPanel');
-        const emptyState = document.getElementById('emptyState');
-        const cityContent = document.getElementById('cityContent');
-        const addMemoryBtn = document.getElementById('addMemoryBtn');
-        const importBtn = document.getElementById('importBtn');
-        const memoryModal = document.getElementById('memoryModal');
-        const closeModal = document.getElementById('closeModal');
-        const memoryForm = document.getElementById('memoryForm');
-        const cancelBtn = document.getElementById('cancelBtn');
-        const inputPhotos = document.getElementById('inputPhotos');
-        const inputCamera = document.getElementById('inputCamera');
-        const photoPreview = document.getElementById('photoPreview');
-        const loadingOverlay = document.getElementById('loadingOverlay');
-        const notification = document.getElementById('notification');
-        const installBanner = document.getElementById('installBanner');
-        const installBtn = document.getElementById('installBtn');
-        const iosTip = document.getElementById('iosTip');
-        const btnPhotoLibrary = document.getElementById('btnPhotoLibrary');
-        const btnCamera = document.getElementById('btnCamera');
-        const btnFiles = document.getElementById('btnFiles');
-        const btnSharedAlbum = document.getElementById('btnSharedAlbum');
-
-        // 初始化
+        
+        // 安全地读取 localStorage
+        try {
+            const stored = localStorage.getItem('travelMemories');
+            if (stored) {
+                memories = JSON.parse(stored);
+            }
+        } catch (e) {
+            console.error('读取存储失败:', e);
+            memories = [];
+        }
+        
+        // ===== DOM 元素 =====
+        const els = {
+            cityCount: document.getElementById('cityCount'),
+            memoryCount: document.getElementById('memoryCount'),
+            photoCount: document.getElementById('photoCount'),
+            worldMap: document.getElementById('worldMap'),
+            cityMarkers: document.getElementById('cityMarkers'),
+            emptyState: document.getElementById('emptyState'),
+            cityContent: document.getElementById('cityContent'),
+            cityName: document.getElementById('cityName'),
+            visitDate: document.getElementById('visitDate'),
+            photoGallery: document.getElementById('photoGallery'),
+            memoryText: document.getElementById('memoryText'),
+            addMemoryBtn: document.getElementById('addMemoryBtn'),
+            importBtn: document.getElementById('importBtn'),
+            memoryModal: document.getElementById('memoryModal'),
+            closeModal: document.getElementById('closeModal'),
+            memoryForm: document.getElementById('memoryForm'),
+            cancelBtn: document.getElementById('cancelBtn'),
+            photoUpload: document.getElementById('photoUpload'),
+            inputPhotos: document.getElementById('inputPhotos'),
+            photoPreview: document.getElementById('photoPreview'),
+            loadingOverlay: document.getElementById('loadingOverlay'),
+            loadingText: document.getElementById('loadingText'),
+            notification: document.getElementById('notification'),
+            installBanner: document.getElementById('installBanner'),
+            installBtn: document.getElementById('installBtn'),
+            inputCity: document.getElementById('inputCity'),
+            inputRegion: document.getElementById('inputRegion'),
+            inputDate: document.getElementById('inputDate'),
+            inputMemory: document.getElementById('inputMemory')
+        };
+        
+        // ===== 初始化 =====
         document.addEventListener('DOMContentLoaded', () => {
+            console.log('应用初始化');
             updateStats();
             renderMap();
             setupEventListeners();
-            checkInstallPrompt();
-            
-            // iOS 特定优化
-            if (isIOS) {
-                iosTip.style.display = 'block';
-            } else {
-                iosTip.style.display = 'none';
-            }
+            checkInstall();
         });
-
-        // 更新统计
+        
+        // ===== 统计更新 =====
         function updateStats() {
             const cities = new Set(memories.map(m => m.city));
             const photos = memories.reduce((sum, m) => sum + (m.photos ? m.photos.length : 0), 0);
             
-            document.getElementById('cityCount').textContent = cities.size;
-            document.getElementById('memoryCount').textContent = memories.length;
-            document.getElementById('photoCount').textContent = photos;
+            els.cityCount.textContent = cities.size;
+            els.memoryCount.textContent = memories.length;
+            els.photoCount.textContent = photos;
         }
-
-        // 渲染地图
+        
+        // ===== 地图渲染 =====
         function renderMap() {
-            document.querySelectorAll('.continent').forEach(continent => {
-                continent.classList.remove('visited', 'active');
-            });
+            document.querySelectorAll('.continent').forEach(c => c.classList.remove('visited', 'active'));
             
             const visitedRegions = new Set(memories.map(m => m.region));
             visitedRegions.forEach(region => {
-                const element = document.querySelector(`[data-region="${region}"]`);
-                if (element) element.classList.add('visited');
+                const el = document.querySelector(`[data-region="${region}"]`);
+                if (el) el.classList.add('visited');
             });
             
-            cityMarkers.innerHTML = '';
+            els.cityMarkers.innerHTML = '';
             const cityMap = new Map();
             
-            memories.forEach(memory => {
-                if (!cityMap.has(memory.city)) {
-                    cityMap.set(memory.city, memory);
-                }
+            memories.forEach(m => {
+                if (!cityMap.has(m.city)) cityMap.set(m.city, m);
             });
             
             cityMap.forEach((memory, city) => {
@@ -922,40 +683,38 @@
                 marker.style.left = memory.x + '%';
                 marker.style.top = memory.y + '%';
                 marker.addEventListener('click', () => showCityDetail(memory));
-                cityMarkers.appendChild(marker);
+                els.cityMarkers.appendChild(marker);
             });
         }
-
-        // 显示城市详情
+        
+        // ===== 显示城市详情 =====
         function showCityDetail(memory) {
             document.querySelectorAll('.continent').forEach(c => c.classList.remove('active'));
-            const regionElement = document.querySelector(`[data-region="${memory.region}"]`);
-            if (regionElement) regionElement.classList.add('active');
+            const regionEl = document.querySelector(`[data-region="${memory.region}"]`);
+            if (regionEl) regionEl.classList.add('active');
             
-            emptyState.style.display = 'none';
-            cityContent.style.display = 'block';
+            els.emptyState.style.display = 'none';
+            els.cityContent.style.display = 'block';
             
-            document.getElementById('cityName').textContent = memory.city;
-            document.getElementById('visitDate').textContent = memory.date || '未记录日期';
-            document.getElementById('memoryText').textContent = memory.memory || '还没有写随记...';
+            els.cityName.textContent = memory.city;
+            els.visitDate.textContent = memory.date || '未记录日期';
+            els.memoryText.textContent = memory.memory || '还没有写随记...';
             
-            const gallery = document.getElementById('photoGallery');
-            gallery.innerHTML = '';
-            
+            els.photoGallery.innerHTML = '';
             if (memory.photos && memory.photos.length > 0) {
                 memory.photos.forEach(photo => {
                     const item = document.createElement('div');
                     item.className = 'photo-item';
                     item.innerHTML = `<img src="${photo}" alt="旅行照片">`;
                     item.addEventListener('click', () => window.open(photo, '_blank'));
-                    gallery.appendChild(item);
+                    els.photoGallery.appendChild(item);
                 });
             } else {
-                gallery.innerHTML = '<p style="color: #aaa; grid-column: 1/-1;">还没有添加照片</p>';
+                els.photoGallery.innerHTML = '<p style="color: #aaa; grid-column: 1/-1;">还没有添加照片</p>';
             }
         }
-
-        // 设置事件监听
+        
+        // ===== 事件监听 =====
         function setupEventListeners() {
             // 地图点击
             document.querySelectorAll('.continent').forEach(continent => {
@@ -967,271 +726,209 @@
             });
             
             // 打开模态框
-            addMemoryBtn.addEventListener('click', () => openModal());
-            importBtn.addEventListener('click', () => openModal(true));
+            els.addMemoryBtn.addEventListener('click', openModal);
+            els.importBtn.addEventListener('click', openModal);
             
             // 关闭模态框
-            closeModal.addEventListener('click', closeMemoryModal);
-            cancelBtn.addEventListener('click', closeMemoryModal);
-            memoryModal.addEventListener('click', (e) => {
-                if (e.target === memoryModal) closeMemoryModal();
+            els.closeModal.addEventListener('click', closeModal);
+            els.cancelBtn.addEventListener('click', closeModal);
+            els.memoryModal.addEventListener('click', (e) => {
+                if (e.target === els.memoryModal) closeModal();
             });
             
-            // 相册选择按钮
-            btnPhotoLibrary.addEventListener('click', () => {
-                // iOS 照片图库 - 使用 webkitdirectory 属性模拟相册选择
-                inputPhotos.setAttribute('webkitdirectory', '');
-                inputPhotos.removeAttribute('capture');
-                inputPhotos.click();
+            // 照片上传 - 关键修复！
+            els.photoUpload.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('点击上传区域');
+                els.inputPhotos.click();
             });
             
-            btnCamera.addEventListener('click', () => {
-                // 直接调用相机
-                inputCamera.click();
+            // 文件选择事件
+            els.inputPhotos.addEventListener('change', (e) => {
+                console.log('文件选择事件触发', e.target.files);
+                handleFiles(e.target.files);
             });
-            
-            btnFiles.addEventListener('click', () => {
-                // 普通文件选择
-                inputPhotos.removeAttribute('webkitdirectory');
-                inputPhotos.removeAttribute('capture');
-                inputPhotos.click();
-            });
-            
-            btnSharedAlbum.addEventListener('click', () => {
-                // iOS 共享相册快捷访问
-                if (isIOS) {
-                    showNotification('请选择"照片图库"，然后在底部切换到"相册"标签');
-                    setTimeout(() => {
-                        inputPhotos.removeAttribute('webkitdirectory');
-                        inputPhotos.removeAttribute('capture');
-                        inputPhotos.click();
-                    }, 1500);
-                } else {
-                    inputPhotos.removeAttribute('webkitdirectory');
-                    inputPhotos.removeAttribute('capture');
-                    inputPhotos.click();
-                }
-            });
-            
-            // 文件选择监听
-            inputPhotos.addEventListener('change', (e) => handleFiles(e.target.files));
-            inputCamera.addEventListener('change', (e) => handleFiles(e.target.files));
             
             // 表单提交
-            memoryForm.addEventListener('submit', (e) => {
+            els.memoryForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 saveMemory();
             });
         }
-
-        // 打开模态框
-        function openModal(isImport = false) {
-            memoryModal.classList.add('active');
+        
+        // ===== 打开模态框 =====
+        function openModal() {
+            console.log('打开模态框');
+            els.memoryModal.classList.add('active');
             currentPhotos = [];
-            photoPreview.innerHTML = '';
-            memoryForm.reset();
-            currentCity = null;
-            
-            if (isImport) {
-                // 如果是导入模式，自动展开相册选择
-                setTimeout(() => {
-                    if (isIOS) {
-                        showNotification('请选择"照片图库"访问相册');
-                    }
-                }, 500);
-            }
+            els.photoPreview.innerHTML = '';
+            els.memoryForm.reset();
         }
-
-        // 关闭模态框
-        function closeMemoryModal() {
-            memoryModal.classList.remove('active');
+        
+        // ===== 关闭模态框 =====
+        function closeModal() {
+            els.memoryModal.classList.remove('active');
             currentPhotos = [];
-            photoPreview.innerHTML = '';
-            currentCity = null;
+            els.photoPreview.innerHTML = '';
         }
-
-        // 处理文件上传（核心功能）
+        
+        // ===== 处理文件（核心修复）=====
         async function handleFiles(files) {
-            if (!files || files.length === 0) return;
+            console.log('开始处理文件', files ? files.length : 0);
             
-            loadingOverlay.classList.add('active');
+            if (!files || files.length === 0) {
+                console.log('没有选择文件');
+                showNotification('没有选择照片');
+                return;
+            }
             
-            try {
-                for (const file of files) {
-                    if (!file.type.startsWith('image/')) continue;
+            // 显示加载
+            els.loadingText.textContent = `正在处理 ${files.length} 张照片...`;
+            els.loadingOverlay.classList.add('active');
+            
+            // 使用 setTimeout 让 UI 有时间更新
+            setTimeout(async () => {
+                try {
+                    let successCount = 0;
                     
-                    // 读取EXIF数据
-                    const exifData = await readExifData(file);
-                    
-                    // 读取图片为base64
-                    const base64 = await readFileAsBase64(file);
-                    currentPhotos.push(base64);
-                    
-                    // 如果有GPS数据，尝试识别地点
-                    if (exifData && exifData.latitude && exifData.longitude) {
-                        const cityInfo = await getCityFromCoords(exifData.latitude, exifData.longitude);
-                        if (cityInfo && !currentCity) {
-                            currentCity = cityInfo;
+                    for (let i = 0; i < files.length; i++) {
+                        const file = files[i];
+                        console.log(`处理第 ${i+1} 个文件:`, file.name, file.type, file.size);
+                        
+                        // 检查是否是图片
+                        if (!file.type || !file.type.startsWith('image/')) {
+                            console.log('跳过非图片文件');
+                            continue;
+                        }
+                        
+                        // 检查大小（限制 5MB）
+                        if (file.size > 5 * 1024 * 1024) {
+                            console.log('文件太大，跳过');
+                            continue;
+                        }
+                        
+                        try {
+                            // 读取并压缩
+                            const base64 = await readAndCompress(file);
+                            currentPhotos.push(base64);
+                            successCount++;
+                            console.log('处理成功，当前照片数:', currentPhotos.length);
+                        } catch (err) {
+                            console.error('处理单个文件失败:', err);
                         }
                     }
                     
-                    // 如果有拍摄日期，自动填充
-                    if (exifData && exifData.dateTime && !document.getElementById('inputDate').value) {
-                        const date = new Date(exifData.dateTime);
-                        if (!isNaN(date.getTime())) {
-                            document.getElementById('inputDate').value = date.toISOString().split('T')[0];
-                        }
+                    console.log('处理完成，成功:', successCount);
+                    
+                    if (successCount === 0) {
+                        showNotification('没有成功处理任何照片');
+                    } else {
+                        showNotification(`成功添加 ${successCount} 张照片`);
+                        renderPreview();
                     }
+                    
+                } catch (error) {
+                    console.error('处理过程出错:', error);
+                    showNotification('处理照片时出错');
+                } finally {
+                    // 隐藏加载
+                    els.loadingOverlay.classList.remove('active');
+                    // 清空 input，允许再次选择
+                    els.inputPhotos.value = '';
                 }
-                
-                renderPhotoPreview();
-                
-                // 自动填充识别到的城市
-                if (currentCity) {
-                    document.getElementById('inputCity').value = currentCity.name || '';
-                    const regionSelect = document.getElementById('inputRegion');
-                    if (currentCity.region) {
-                        const regionMap = {
-                            'CN': 'asia', 'JP': 'asia', 'KR': 'asia', 'TH': 'asia',
-                            'FR': 'europe', 'IT': 'europe', 'ES': 'europe', 'DE': 'europe', 'UK': 'europe',
-                            'US': 'north-america', 'CA': 'north-america',
-                            'AU': 'oceania', 'NZ': 'oceania'
-                        };
-                        const region = regionMap[currentCity.country];
-                        if (region) regionSelect.value = region;
-                    }
-                }
-                
-            } catch (error) {
-                console.error('处理照片时出错:', error);
-                showNotification('照片处理完成，但地点识别可能需要手动输入');
-            } finally {
-                loadingOverlay.classList.remove('active');
-            }
+            }, 100);
         }
-
-        // 读取EXIF数据（使用 exif-js 库）
-        function readExifData(file) {
-            return new Promise((resolve) => {
-                // 检查是否已加载 exif-js
-                if (typeof EXIF === 'undefined') {
-                    // 动态加载 exif-js
-                    const script = document.createElement('script');
-                    script.src = 'https://cdn.jsdelivr.net/npm/exif-js@2.3.0/exif.min.js';
-                    script.onload = () => {
-                        readExifWithLibrary(file, resolve);
-                    };
-                    script.onerror = () => {
-                        // 如果加载失败，使用备用方案
-                        resolve(getBasicFileInfo(file));
-                    };
-                    document.head.appendChild(script);
-                } else {
-                    readExifWithLibrary(file, resolve);
-                }
-            });
-        }
-
-        // 使用 exif-js 读取
-        function readExifWithLibrary(file, resolve) {
-            EXIF.getData(file, function() {
-                const lat = EXIF.getTag(this, 'GPSLatitude');
-                const lon = EXIF.getTag(this, 'GPSLongitude');
-                const dateTime = EXIF.getTag(this, 'DateTimeOriginal');
-                
-                if (lat && lon) {
-                    const latitude = convertToDecimal(lat, EXIF.getTag(this, 'GPSLatitudeRef'));
-                    const longitude = convertToDecimal(lon, EXIF.getTag(this, 'GPSLongitudeRef'));
-                    resolve({
-                        latitude,
-                        longitude,
-                        dateTime: dateTime ? dateTime.replace(/(\d{4}):(\d{2}):(\d{2})/, '$1-$2-$3') : null
-                    });
-                } else {
-                    resolve(getBasicFileInfo(file));
-                }
-            });
-        }
-
-        // 转换GPS坐标
-        function convertToDecimal(coord, ref) {
-            if (!coord) return null;
-            let decimal = coord[0] + coord[1]/60 + coord[2]/3600;
-            if (ref === 'S' || ref === 'W') decimal = -decimal;
-            return decimal;
-        }
-
-        // 获取基本文件信息（备用方案）
-        function getBasicFileInfo(file) {
-            return {
-                latitude: null,
-                longitude: null,
-                dateTime: file.lastModified ? new Date(file.lastModified).toISOString() : null
-            };
-        }
-
-        // 通过坐标获取城市（使用免费API）
-        async function getCityFromCoords(lat, lon) {
-            try {
-                const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=10&accept-language=zh-CN`);
-                const data = await response.json();
-                
-                if (data && data.address) {
-                    const address = data.address;
-                    return {
-                        name: address.city || address.town || address.village || address.county || '未知地点',
-                        country: address.country_code ? address.country_code.toUpperCase() : '',
-                        region: address.state || address.region || ''
-                    };
-                }
-                return null;
-            } catch (error) {
-                console.error('地理编码失败:', error);
-                return null;
-            }
-        }
-
-        // 读取文件为base64
-        function readFileAsBase64(file) {
-            return new Promise((resolve) => {
+        
+        // ===== 读取并压缩图片（简化版）=====
+        function readAndCompress(file) {
+            return new Promise((resolve, reject) => {
                 const reader = new FileReader();
-                reader.onload = (e) => resolve(e.target.result);
+                
+                reader.onload = (e) => {
+                    const img = new Image();
+                    
+                    img.onload = () => {
+                        // 计算压缩后尺寸
+                        let width = img.width;
+                        let height = img.height;
+                        const maxSize = 1200;
+                        
+                        if (width > height && width > maxSize) {
+                            height = (height * maxSize) / width;
+                            width = maxSize;
+                        } else if (height > maxSize) {
+                            width = (width * maxSize) / height;
+                            height = maxSize;
+                        }
+                        
+                        // 创建 canvas
+                        const canvas = document.createElement('canvas');
+                        canvas.width = width;
+                        canvas.height = height;
+                        
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        
+                        // 输出压缩后的 base64
+                        const compressed = canvas.toDataURL('image/jpeg', 0.7);
+                        console.log('压缩完成，原图:', e.target.result.length, '压缩后:', compressed.length);
+                        resolve(compressed);
+                    };
+                    
+                    img.onerror = () => {
+                        console.log('图片加载失败，使用原图');
+                        resolve(e.target.result);
+                    };
+                    
+                    img.src = e.target.result;
+                };
+                
+                reader.onerror = (e) => {
+                    console.error('FileReader 错误:', e);
+                    reject(new Error('读取失败'));
+                };
+                
                 reader.readAsDataURL(file);
             });
         }
-
-        // 渲染照片预览
-        function renderPhotoPreview() {
-            photoPreview.innerHTML = '';
+        
+        // ===== 渲染预览 =====
+        function renderPreview() {
+            console.log('渲染预览，照片数:', currentPhotos.length);
+            els.photoPreview.innerHTML = '';
+            
             currentPhotos.forEach((photo, index) => {
                 const item = document.createElement('div');
                 item.className = 'preview-item';
                 item.innerHTML = `
                     <img src="${photo}" alt="预览">
-                    <button class="remove-photo" onclick="removePhoto(${index})">&times;</button>
+                    <button class="remove-photo" onclick="window.removePhoto(${index})">&times;</button>
                 `;
-                photoPreview.appendChild(item);
+                els.photoPreview.appendChild(item);
             });
         }
-
-        // 移除照片
-        function removePhoto(index) {
+        
+        // ===== 移除照片 =====
+        window.removePhoto = function(index) {
+            console.log('移除照片', index);
             currentPhotos.splice(index, 1);
-            renderPhotoPreview();
-        }
-
-        // 保存回忆
+            renderPreview();
+        };
+        
+        // ===== 保存回忆 =====
         function saveMemory() {
-            const city = document.getElementById('inputCity').value.trim();
-            const region = document.getElementById('inputRegion').value;
-            const date = document.getElementById('inputDate').value;
-            const memory = document.getElementById('inputMemory').value.trim();
+            const city = els.inputCity.value.trim();
+            const region = els.inputRegion.value;
+            const date = els.inputDate.value;
+            const memory = els.inputMemory.value.trim();
             
             if (!city || !region) {
                 showNotification('请填写城市名称和所属区域');
                 return;
             }
             
+            // 计算随机位置
             const x = 20 + Math.random() * 60;
             const y = 20 + Math.random() * 60;
             
@@ -1246,30 +943,47 @@
                 y
             };
             
-            memories.push(newMemory);
-            localStorage.setItem('travelMemories', JSON.stringify(memories));
+            // 检查存储空间
+            const totalSize = JSON.stringify(newMemory).length;
+            console.log('新回忆大小:', totalSize);
             
-            updateStats();
-            renderMap();
-            closeMemoryModal();
-            showCityDetail(newMemory);
-            showNotification('回忆已保存！❤️');
-            
-            currentCity = null;
-        }
-
-        // 显示通知
-        function showNotification(message) {
-            notification.textContent = message;
-            notification.classList.add('show');
-            setTimeout(() => notification.classList.remove('show'), 3000);
-        }
-
-        // 检查安装提示
-        function checkInstallPrompt() {
-            if (window.matchMedia('(display-mode: standalone)').matches) {
+            if (totalSize > 4 * 1024 * 1024) {
+                showNotification('照片太多，请减少数量');
                 return;
             }
+            
+            try {
+                memories.push(newMemory);
+                localStorage.setItem('travelMemories', JSON.stringify(memories));
+                console.log('保存成功');
+                
+                updateStats();
+                renderMap();
+                closeModal();
+                showCityDetail(newMemory);
+                showNotification('回忆已保存！❤️');
+                
+            } catch (e) {
+                console.error('保存失败:', e);
+                if (e.name === 'QuotaExceededError') {
+                    showNotification('存储空间不足，请减少照片');
+                } else {
+                    showNotification('保存失败: ' + e.message);
+                }
+            }
+        }
+        
+        // ===== 显示通知 =====
+        function showNotification(message) {
+            console.log('通知:', message);
+            els.notification.textContent = message;
+            els.notification.classList.add('show');
+            setTimeout(() => els.notification.classList.remove('show'), 3000);
+        }
+        
+        // ===== 检查安装 =====
+        function checkInstall() {
+            if (window.matchMedia('(display-mode: standalone)').matches) return;
             
             const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
             const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
@@ -1277,48 +991,32 @@
             if (isIOS && isSafari) {
                 setTimeout(() => {
                     showNotification('点击分享按钮，选择"添加到主屏幕"');
-                }, 2000);
+                }, 3000);
             } else if ('beforeinstallprompt' in window) {
                 window.addEventListener('beforeinstallprompt', (e) => {
                     e.preventDefault();
                     const deferredPrompt = e;
+                    els.installBanner.classList.add('show');
                     
-                    installBanner.classList.add('show');
-                    
-                    installBtn.addEventListener('click', () => {
+                    els.installBtn.addEventListener('click', () => {
                         deferredPrompt.prompt();
                         deferredPrompt.userChoice.then((choiceResult) => {
                             if (choiceResult.outcome === 'accepted') {
-                                showNotification('应用已安装到主屏幕！');
+                                showNotification('应用已安装！');
                             }
-                            installBanner.classList.remove('show');
+                            els.installBanner.classList.remove('show');
                         });
                     });
                 });
             }
         }
-
-        // Service Worker 注册
+        
+        // ===== Service Worker =====
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js').catch(err => {
-                console.log('Service Worker 注册失败:', err);
+                console.log('SW 注册失败:', err);
             });
         }
-
-        // 导出数据功能
-        function exportData() {
-            const dataStr = JSON.stringify(memories, null, 2);
-            const blob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = '我们的旅行回忆.json';
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-
-        // 使removePhoto全局可用
-        window.removePhoto = removePhoto;
     </script>
 </body>
 </html>
